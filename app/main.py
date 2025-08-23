@@ -25,11 +25,9 @@ app.add_middleware(
 def home():
     return {"message": "Welcome to the FastAPI application!"}
 
-# Add a health check endpoint
-@app.get("/health")
-def health_check():
-    return {"status": "healthy"}
-
+@app.get('/greet/{name}')
+def greet(name: str = "Guest"):
+    return {"message": f"Hello, {name}!"}
 # Run the application
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)  # Changed to port 8000 (FastAPI default)

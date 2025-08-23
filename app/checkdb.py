@@ -12,7 +12,8 @@ try:
     # curr.execute("SELECT * from test;")
     # rows = curr.fetchall()
     # for row in rows:
-    #     print(row)
+    #     print(f"id={row[0]}, name={row[1]}")
+    ##     print(row)
     # curr.close()
     
     conn.close()
