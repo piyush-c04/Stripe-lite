@@ -1,7 +1,5 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String
 import uuid
-from datetime import datetime
 from database import Base
 
 class Tenant(Base):

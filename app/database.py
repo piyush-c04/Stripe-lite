@@ -1,6 +1,6 @@
 # database.py
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker, DeclarativeBase
 import os
 from dotenv import load_dotenv
 
@@ -15,8 +15,12 @@ if not DATABASE_URL:
 else:
     engine = create_engine(DATABASE_URL)
 
+
+# ✅ SQLAlchemy 2.0 declarative base
+class Base(DeclarativeBase):
+    pass
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()  # This is the correct SQLAlchemy 2.0 syntax
 
 # Dependency to get DB session
 def get_db():

@@ -1,18 +1,9 @@
 # main.py
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-from typing import List
-import uvicorn
+from fastapi import FastAPI, Depends, HTTPException, status  # ✅ Fixed: HTTPException
+from fastapi.middleware.cors import CORSMiddleware  # ✅ Fixed: middleware.cors
+import uvicorn 
 import models
-import api_schemas
 from database import engine, Base, get_db
-
-
-
-# Import your modules (make sure these files exist)
-# import models 
-# import schemas
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -41,7 +32,7 @@ def greet(name: str = "Guest"):
     return {"message": f"Hello, {name}!"}
 
 from routes.tenants import router as tenant_router
-app.include_router(tenant_router, prefix="/",tags=["Tenants"])
+app.include_router(tenant_router,tags=["Tenants"])
 
 # Run the application
 if __name__ == "__main__":
