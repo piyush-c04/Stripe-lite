@@ -1,25 +1,24 @@
-from pydantic import BaseModel,EmailStr
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime
-
-#Tenant schema
+# Tenant schema
 class TenantBase(BaseModel):
-    name : str
-    EmailStr : EmailStr
-    country : str
-    currency : str
-    tax_id : Optional[str] = None
+    name: str
+    email: str
+    country: str = "India"  # Added default value
+    currency: str = "INR"   # Added default value
+    tax_id: Optional[str] = None
 
 class TenantCreate(TenantBase):
     pass
 
 class TenantResponse(TenantBase):
-    id : int
-    is_active : bool
-    created_at : datetime
+    id: str  # Changed from int to str since you're using UUID
+    is_active: bool
+    created_at: datetime
 
     class Config:
-        from_attribute = True
+        from_attributes = True  # Fixed the typo
 
 
 #Plan Schema
@@ -39,13 +38,13 @@ class PlanResponse(PlanBase):
     is_active : bool
     created_at : datetime
     
-    class config:
+    class Config:
         from_attribute = True
         
 #Customer Schema
 class CustomerBase(BaseModel):
     name : str
-    email : EmailStr
+    email : str
     city : Optional[str] = None
     state : Optional[str] = None
     country : Optional[str] = None
@@ -55,7 +54,7 @@ class CustomerBase(BaseModel):
 class CustomerCreate(CustomerBase):
     pass
 
-class CustmerResponse(CustomerBase):
+class CustomerResponse(CustomerBase):
     id : int
     is_active : bool
     created_at : datetime
