@@ -11,3 +11,6 @@ class Tenant(Base):
     country = Column(String)
     currency = Column(String)
     tax_id = Column(String)
+    class Config:
+        from_attributes = True
+        orm_mode = True
