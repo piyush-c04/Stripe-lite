@@ -37,7 +37,7 @@ class PlanCreate(PlanBase):
     pass
 
 class PlanResponse(PlanBase):
-    id : int
+    id : str
     is_active : str
     
     class Config:
