@@ -34,6 +34,9 @@ def greet(name: str = "Guest"):
 from routes.tenants import router as tenant_router
 app.include_router(tenant_router,tags=["Tenants"])
 
+from routes.customers import router as customer_router
+app.include_router(customer_router,tags=["Customers"])
+
 # Run the application
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)  # Changed to port 8000 (FastAPI default)

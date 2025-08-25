@@ -29,16 +29,16 @@ class TenantResponse(TenantBase):
 class PlanBase(BaseModel):
     name : str
     description : Optional[str] = None
-    amount : float
+    amount : str
     currency : str = "INR"
-    interval : int  # e.g., 'month', 'year'
+    interval : str  # e.g., 'month', 'year'
     
 class PlanCreate(PlanBase):
     pass
 
 class PlanResponse(PlanBase):
     id : int
-    is_active : bool
+    is_active : str
     
     class Config:
         from_attribute = True
@@ -57,7 +57,7 @@ class CustomerCreate(CustomerBase):
     pass
 
 class CustomerResponse(CustomerBase):
-    id : int
+    id : str
 
     class Config:
         from_attribute = True
