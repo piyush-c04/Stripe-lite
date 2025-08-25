@@ -1,6 +1,12 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime
+class MyConfig:
+    max_anystr_length = 10
+    validate_assignment = True
+    error_msg_templates = {
+        'value_error.any_str.max_length': 'max_length:{limit_value}',
+    }
 # Tenant schema
 class TenantBase(BaseModel):
     name: str
@@ -14,8 +20,6 @@ class TenantCreate(TenantBase):
 
 class TenantResponse(TenantBase):
     id: str  # Changed from int to str since you're using UUID
-    is_active: bool
-    created_at: datetime
 
     class Config:
         from_attributes = True  # Fixed the typo
