@@ -32,7 +32,6 @@ class PlanBase(BaseModel):
     amount : float
     currency : str = "INR"
     interval : int  # e.g., 'month', 'year'
-    trial_period_days : Optional[int] = None
     
 class PlanCreate(PlanBase):
     pass
@@ -40,7 +39,6 @@ class PlanCreate(PlanBase):
 class PlanResponse(PlanBase):
     id : int
     is_active : bool
-    created_at : datetime
     
     class Config:
         from_attribute = True
@@ -60,8 +58,6 @@ class CustomerCreate(CustomerBase):
 
 class CustomerResponse(CustomerBase):
     id : int
-    is_active : bool
-    created_at : datetime
 
     class Config:
         from_attribute = True
