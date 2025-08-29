@@ -18,6 +18,13 @@ class TenantBase(BaseModel):
 class TenantCreate(TenantBase):
     pass
 
+class TenantUpdate(BaseModel):
+    name: Optional[str] = None
+    email: Optional[str] = None
+    country: Optional[str] = None
+    currency: Optional[str] = None
+    tax_id: Optional[str] = None
+    
 class TenantResponse(TenantBase):
     id: str  # Changed from int to str since you're using UUID
 
@@ -36,6 +43,12 @@ class PlanBase(BaseModel):
 class PlanCreate(PlanBase):
     pass
 
+class PlanUpdate(BaseModel):
+    name : Optional[str] = None
+    description : Optional[str] = None
+    amount : Optional[str] = None
+    currency : Optional[str] = None
+    interval : Optional[str] = None
 class PlanResponse(PlanBase):
     id : str
     is_active : str
@@ -55,6 +68,15 @@ class CustomerBase(BaseModel):
 
 class CustomerCreate(CustomerBase):
     pass
+
+class CustomerUpdate(BaseModel):
+    name : Optional[str] = None
+    email : Optional[str] = None
+    city : Optional[str] = None
+    state : Optional[str] = None
+    country : Optional[str] = None
+    phone : Optional[str] = None
+    description : Optional[str] = None
 
 class CustomerResponse(CustomerBase):
     id : str

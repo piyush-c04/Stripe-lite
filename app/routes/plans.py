@@ -40,3 +40,19 @@ def create_plan(plan: api_schemas.PlanCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_plan)
     return db_plan
+
+# Update Plan
+@router.put("/updateplan/{plan_id}", response_model=api_schemas.PlanResponse, status_code=status.HTTP_200_OK)
+def update_plan(plan_id: str, plan: api_schemas.PlanUpdate, db: Session = Depends(get_db)):
+    db_plan = db.query(models.Plan).filter(models.Plan.id == plan_id).first()
+    if not db_plan:
+        raise HTTPException(status_code=404, detail="Plan not found")
+    
+    for var, value in vars(plan).items():
+        if value is not None:
+            setattr(db_plan, var, value)
+    
+    db.add(db_plan)
+    db.commit()
+    db.refresh(db_plan)
+    return db_plan

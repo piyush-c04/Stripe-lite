@@ -38,3 +38,16 @@ def create_tenant(tenant: api_schemas.TenantCreate, db: Session = Depends(get_db
     db.commit()
     db.refresh(db_tenant)
     return db_tenant
+
+@router.post("/updatetenant/{tenant_id}", response_model=api_schemas.TenantResponse, status_code=status.HTTP_200_OK)
+def update_tenant(tenant_id:str, tenant: api_schemas.TenantUpdate,db:Session=Depends(get_db)):
+    db_tenant = db.query(models.Tenant).filter(models.Tenant.id == tenant_id).first()
+    if not db_tenant:
+        raise HTTPException(status_code = 404,detail="Tenant not found")
+    for var, value in vars(tenant).items():
+        if(value is not None):
+            setattr(db_tenant,var,value)
+    db.add(db_tenant)
+    db.commit()
+    db.refresh(db_tenant)
+    return db_tenant

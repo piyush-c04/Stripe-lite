@@ -40,3 +40,19 @@ def create_customer(customer: api_schemas.CustomerCreate, db: Session = Depends(
     db.commit()
     db.refresh(db_customer)
     return db_customer
+
+# Update Customer
+@router.put("/updatecustomer/{customer_id}", response_model=api_schemas.CustomerResponse, status_code=status.HTTP_200_OK)
+def update_customer(customer_id: str, customer: api_schemas.CustomerUpdate, db: Session = Depends(get_db)):
+    db_customer = db.query(models.Customer).filter(models.Customer.id == customer_id).first()
+    if not db_customer:
+        raise HTTPException(status_code=404, detail="Customer not found")
+    
+    for var, value in vars(customer).items():
+        if value is not None:
+            setattr(db_customer, var, value)
+    
+    db.add(db_customer)
+    db.commit()
+    db.refresh(db_customer)
+    return db_customer
